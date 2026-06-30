@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Look | Barbershop Kaiserslautern</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black: #0a0a0a;
+      --dark: #141414;
+      --dark-card: #1a1a1a;
+      --gold: #c8a45a;
+      --gold-light: #dbb96e;
+      --gold-dim: rgba(200, 164, 90, 0.15);
+      --text: #e8e4dc;
+      --text-muted: #9a9490;
+      --border: rgba(200, 164, 90, 0.2);
+    }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--text);
+      line-height: 1.7;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 2px;
+    }
+
+    .nav-right { display: flex; align-items: center; gap: 2rem; }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--text-muted); text-decoration: none;
+      font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .lang-wrapper {
+      position: relative;
+    }
+    .lang-toggle {
+      background: transparent; border: 1px solid var(--gold);
+      color: var(--gold); padding: 0.4rem 1rem;
+      font-size: 0.75rem; letter-spacing: 1px;
+      cursor: pointer; transition: all 0.3s;
+      font-family: 'Inter', sans-serif; font-weight: 500;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .lang-toggle:hover { background: var(--gold); color: var(--black); }
+    .lang-toggle svg { width: 10px; height: 10px; transition: transform 0.3s; }
+    .lang-wrapper.open .lang-toggle svg { transform: rotate(180deg); }
+    .lang-dropdown {
+      position: absolute; top: calc(100% + 0.5rem); right: 0;
+      background: var(--dark-card); border: 1px solid var(--border);
+      min-width: 100%; opacity: 0; visibility: hidden;
+      transform: translateY(-5px); transition: all 0.25s;
+      z-index: 300;
+    }
+    [dir="rtl"] .lang-dropdown { right: auto; left: 0; }
+    .lang-wrapper.open .lang-dropdown {
+      opacity: 1; visibility: visible; transform: translateY(0);
+    }
+    .lang-option {
+      display: block; width: 100%; padding: 0.5rem 1rem;
+      background: none; border: none; color: var(--text-muted);
+      font-size: 0.75rem; font-family: 'Inter', sans-serif; font-weight: 500;
+      cursor: pointer; text-align: center; transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .lang-option:hover { background: var(--gold-dim); color: var(--gold); }
+    .lang-option.active { color: var(--gold); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh; display: flex; flex-direction: column;
+      justify-content: center; align-items: center; text-align: center;
+      padding: 2rem;
+      background:
+        radial-gradient(ellipse at 50% 80%, rgba(200, 164, 90, 0.08) 0%, transparent 60%),
+        var(--black);
+    }
+
+    .hero-badge {
+      font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.5rem;
+      border: 1px solid var(--border); padding: 0.5rem 1.5rem;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 6rem); font-weight: 700;
+      color: var(--gold); line-height: 1.1; margin-bottom: 1.5rem;
+    }
+
+    .hero p {
+      max-width: 500px; color: var(--text-muted);
+      font-size: 1.05rem; margin-bottom: 2.5rem;
+    }
+
+    .hero-line {
+      width: 60px; height: 1px; background: var(--gold); margin-bottom: 2rem;
+    }
+
+    .cta-btn {
+      display: inline-block; padding: 1rem 2.5rem;
+      border: 1px solid var(--gold); color: var(--gold);
+      text-decoration: none; font-size: 0.8rem;
+      letter-spacing: 2px; text-transform: uppercase;
+      transition: all 0.4s;
+    }
+    .cta-btn:hover { background: var(--gold); color: var(--black); }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 3rem; }
+
+    .section-label {
+      font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem); font-weight: 700;
+      color: var(--text); margin-bottom: 2rem;
+    }
+
+    .divider {
+      width: 50px; height: 1px; background: var(--gold); margin-bottom: 3rem;
+    }
+
+    /* ── ABOUT ── */
+    .about { max-width: 800px; margin: 0 auto; text-align: center; }
+    .about p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 1.5rem; }
+
+    /* ── GALLERY ── */
+    .gallery-section { background: var(--dark); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem; max-width: 1200px; margin: 0 auto;
+    }
+    .gallery-item {
+      aspect-ratio: 4/5; background: var(--dark-card);
+      border: 1px solid var(--border); overflow: hidden;
+      position: relative; display: flex; align-items: center;
+      justify-content: center; transition: border-color 0.3s;
+    }
+    .gallery-item:hover { border-color: var(--gold); }
+    .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: none;
+    }
+    .gallery-placeholder {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 0.8rem; color: var(--text-muted);
+    }
+    .gallery-placeholder svg {
+      width: 40px; height: 40px; opacity: 0.3;
+      stroke: var(--gold);
+    }
+    .gallery-placeholder span {
+      font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase;
+    }
+
+    /* ── HOURS ── */
+    .hours-section { max-width: 600px; margin: 0 auto; }
+    .hours-table { width: 100%; border-collapse: collapse; }
+    .hours-table tr { border-bottom: 1px solid var(--border); }
+    .hours-table td {
+      padding: 1rem 0; font-size: 0.95rem;
+    }
+    .hours-table td:first-child { color: var(--text); font-weight: 400; }
+    .hours-table td:last-child { text-align: right; color: var(--text-muted); }
+    .hours-table .closed { color: var(--gold); opacity: 0.6; }
+
+    /* ── REVIEWS ── */
+    .reviews-section { background: var(--dark); }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem; max-width: 1200px; margin: 0 auto;
+    }
+    .review-card {
+      background: var(--dark-card); border: 1px solid var(--border);
+      padding: 2rem; transition: border-color 0.3s;
+    }
+    .review-card:hover { border-color: var(--gold); }
+    .review-stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 1rem; letter-spacing: 2px; }
+    .review-text {
+      color: var(--text-muted); font-size: 0.95rem;
+      font-style: italic; margin-bottom: 1.5rem; line-height: 1.8;
+    }
+    .review-author {
+      font-size: 0.8rem; color: var(--text); font-weight: 500;
+      letter-spacing: 1px;
+    }
+    .review-source {
+      font-size: 0.7rem; color: var(--text-muted); margin-top: 0.3rem;
+    }
+
+    /* ── CONTACT ── */
+    .contact-section { max-width: 800px; margin: 0 auto; text-align: center; }
+    .contact-info { margin-top: 2rem; }
+    .contact-item {
+      margin-bottom: 1.5rem;
+    }
+    .contact-item .label {
+      font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.4rem;
+    }
+    .contact-item .value {
+      font-size: 1.1rem; color: var(--text-muted);
+    }
+    .contact-item a {
+      color: var(--text-muted); text-decoration: none;
+      transition: color 0.3s;
+    }
+    .contact-item a:hover { color: var(--gold); }
+
+    .map-container {
+      margin-top: 3rem; width: 100%; height: 300px;
+      border: 1px solid var(--border); filter: grayscale(0.8) brightness(0.7) contrast(1.1);
+      transition: filter 0.4s;
+    }
+    .map-container:hover { filter: grayscale(0.3) brightness(0.8) contrast(1); }
+    .map-container iframe { width: 100%; height: 100%; border: none; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 3rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.75rem; color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+
+    /* ── MOBILE ── */
+    .menu-toggle {
+      display: none; background: none; border: none;
+      cursor: pointer; padding: 0.5rem;
+    }
+    .menu-toggle span {
+      display: block; width: 22px; height: 1px;
+      background: var(--gold); margin: 5px 0;
+      transition: all 0.3s;
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      section { padding: 3.5rem 1.2rem; }
+
+      .menu-toggle { display: block; }
+
+      .nav-links {
+        position: fixed; top: 0; right: -100%; width: 70%; height: 100vh;
+        background: var(--dark); flex-direction: column;
+        justify-content: center; align-items: center;
+        gap: 2.5rem; transition: right 0.4s;
+        z-index: 200;
+      }
+      .nav-links.open { right: 0; }
+      .nav-links a { font-size: 1rem; }
+
+      .nav-right { gap: 0.8rem; }
+
+      .hero { min-height: 85vh; padding: 1.5rem; }
+      .hero-badge { font-size: 0.6rem; letter-spacing: 3px; padding: 0.4rem 1rem; }
+      .hero p { font-size: 0.95rem; }
+      .cta-btn { padding: 0.85rem 2rem; font-size: 0.75rem; }
+
+      .section-label { font-size: 0.65rem; letter-spacing: 3px; }
+      .section-title { font-size: 1.6rem; margin-bottom: 1.2rem; }
+      .divider { margin-bottom: 2rem !important; }
+
+      .about p { font-size: 0.95rem; }
+
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+      .gallery-item { aspect-ratio: 3/4; }
+      .gallery-placeholder svg { width: 28px; height: 28px; }
+      .gallery-placeholder span { font-size: 0.55rem; letter-spacing: 1px; }
+
+      .hours-table td { padding: 0.8rem 0; font-size: 0.9rem; }
+
+      .reviews-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .review-card { padding: 1.5rem; }
+      .review-text { font-size: 0.9rem; line-height: 1.7; margin-bottom: 1rem; }
+
+      .contact-item .value { font-size: 1rem; }
+      .map-container { height: 250px; margin-top: 2rem; }
+
+      footer { padding: 2rem 1rem; }
+    }
+
+    /* ── RTL (Arabic) ── */
+    [dir="rtl"] { font-family: 'Noto Sans Arabic', 'Inter', sans-serif; }
+    [dir="rtl"] .logo { letter-spacing: 0; }
+    [dir="rtl"] .nav-links { direction: rtl; }
+    [dir="rtl"] .nav-links a { letter-spacing: 0; }
+    [dir="rtl"] .section-label { letter-spacing: 2px; }
+    [dir="rtl"] .hero-badge { letter-spacing: 2px; }
+    [dir="rtl"] .hours-table td:first-child { text-align: right; }
+    [dir="rtl"] .hours-table td:last-child { text-align: left; }
+    [dir="rtl"] .cta-btn { letter-spacing: 1px; }
+    [dir="rtl"] .lang-toggle { letter-spacing: 0; }
+    [dir="rtl"] .gallery-placeholder span { letter-spacing: 1px; }
+
+    /* ── ANIMATIONS ── */
+    .fade-in {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">NEW LOOK</div>
+    <div class="nav-right">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about" data-de="Über uns" data-en="About" data-ar="عنّا">Über uns</a></li>
+        <li><a href="#gallery" data-de="Galerie" data-en="Gallery" data-ar="معرض">Galerie</a></li>
+        <li><a href="#hours" data-de="Öffnungszeiten" data-en="Hours" data-ar="أوقات العمل">Öffnungszeiten</a></li>
+        <li><a href="#reviews" data-de="Bewertungen" data-en="Reviews" data-ar="التقييمات">Bewertungen</a></li>
+        <li><a href="#contact" data-de="Kontakt" data-en="Contact" data-ar="اتصل بنا">Kontakt</a></li>
+      </ul>
+      <div class="lang-wrapper" id="langWrapper">
+          <button class="lang-toggle" onclick="toggleDropdown()">
+            <span id="langLabel">DE</span>
+            <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg>
+          </button>
+          <div class="lang-dropdown" id="langDropdown">
+            <button class="lang-option active" data-lang="de" onclick="setLang('de')">DE</button>
+            <button class="lang-option" data-lang="en" onclick="setLang('en')">EN</button>
+            <button class="lang-option" data-lang="ar" onclick="setLang('ar')">عربي</button>
+          </div>
+        </div>
+      <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge" data-de="Barbershop in Kaiserslautern" data-en="Barbershop in Kaiserslautern" data-ar="صالون حلاقة في كايزرسلاوترن">Barbershop in Kaiserslautern</div>
+    <h1>NEW LOOK</h1>
+    <div class="hero-line"></div>
+    <p data-de="Dein Style. Dein Statement. Seit Jahren stehen wir für erstklassige Haarschnitte und persönliche Beratung mitten in Kaiserslautern." data-en="Your style. Your statement. For years, we have stood for first-class haircuts and personal consultation in the heart of Kaiserslautern." data-ar="أسلوبك. بصمتك. منذ سنوات نقدم أفضل قصات الشعر والاستشارة الشخصية في قلب كايزرسلاوترن.">Dein Style. Dein Statement. Seit Jahren stehen wir für erstklassige Haarschnitte und persönliche Beratung mitten in Kaiserslautern.</p>
+    <a href="#contact" class="cta-btn" data-de="Termin anfragen" data-en="Book now" data-ar="احجز موعد">Termin anfragen</a>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about fade-in">
+    <div class="section-label" data-de="Über uns" data-en="About us" data-ar="عنّا">Über uns</div>
+    <h2 class="section-title" data-de="Mehr als nur ein Haarschnitt" data-en="More than just a haircut" data-ar="أكثر من مجرد قصة شعر">Mehr als nur ein Haarschnitt</h2>
+    <div class="divider" style="margin: 0 auto 3rem;"></div>
+    <p data-de="Willkommen bei New Look – deinem Barbershop in der Karl-Marx-Straße in Kaiserslautern. Bei uns bekommst du nicht nur einen Haarschnitt, sondern ein Erlebnis. Unsere erfahrenen Barber nehmen sich Zeit für dich und sorgen dafür, dass du mit einem frischen, perfekten Look den Laden verlässt." data-en="Welcome to New Look – your barbershop on Karl-Marx-Straße in Kaiserslautern. With us, you don't just get a haircut – you get an experience. Our skilled barbers take their time with you, making sure you leave with a fresh, perfect look." data-ar="مرحباً بك في New Look – صالون الحلاقة الخاص بك في شارع كارل ماركس في كايزرسلاوترن. عندنا لا تحصل فقط على قصة شعر، بل على تجربة مميزة. حلاقونا المحترفون يأخذون وقتهم معك ويضمنون أنك تغادر بإطلالة جديدة ومثالية.">Willkommen bei New Look – deinem Barbershop in der Karl-Marx-Straße in Kaiserslautern. Bei uns bekommst du nicht nur einen Haarschnitt, sondern ein Erlebnis. Unsere erfahrenen Barber nehmen sich Zeit für dich und sorgen dafür, dass du mit einem frischen, perfekten Look den Laden verlässt.</p>
+    <p data-de="Unser Salon verbindet modernes Handwerk mit einer einzigartigen Atmosphäre – industrieller Charme trifft auf warme Akzente. Komm vorbei, lehn dich zurück und genieße die Verwandlung." data-en="Our salon combines modern craftsmanship with a unique atmosphere – industrial charm meets warm accents. Come by, sit back, and enjoy the transformation." data-ar="صالوننا يجمع بين الحرفية العصرية وأجواء فريدة – سحر صناعي يلتقي بلمسات دافئة. تعال وزرنا، استرخِ واستمتع بالتغيير.">Unser Salon verbindet modernes Handwerk mit einer einzigartigen Atmosphäre – industrieller Charme trifft auf warme Akzente. Komm vorbei, lehn dich zurück und genieße die Verwandlung.</p>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery" class="gallery-section fade-in">
+    <div style="text-align: center; max-width: 1200px; margin: 0 auto;">
+      <div class="section-label" data-de="Unsere Arbeit" data-en="Our work" data-ar="أعمالنا">Unsere Arbeit</div>
+      <h2 class="section-title" data-de="Galerie" data-en="Gallery" data-ar="معرض الصور">Galerie</h2>
+      <div class="divider" style="margin: 0 auto 3rem;"></div>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <!-- <img src="bild1.jpg" alt="Haarschnitt 1"> -->
+        <div class="gallery-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span data-de="Bild hier einfügen" data-en="Insert image here" data-ar="أدخل صورة هنا">Bild hier einfügen</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <!-- <img src="bild2.jpg" alt="Haarschnitt 2"> -->
+        <div class="gallery-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span data-de="Bild hier einfügen" data-en="Insert image here" data-ar="أدخل صورة هنا">Bild hier einfügen</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <!-- <img src="bild3.jpg" alt="Haarschnitt 3"> -->
+        <div class="gallery-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span data-de="Bild hier einfügen" data-en="Insert image here" data-ar="أدخل صورة هنا">Bild hier einfügen</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <!-- <img src="bild4.jpg" alt="Haarschnitt 4"> -->
+        <div class="gallery-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span data-de="Bild hier einfügen" data-en="Insert image here" data-ar="أدخل صورة هنا">Bild hier einfügen</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <!-- <img src="bild5.jpg" alt="Haarschnitt 5"> -->
+        <div class="gallery-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span data-de="Bild hier einfügen" data-en="Insert image here" data-ar="أدخل صورة هنا">Bild hier einfügen</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <!-- <img src="bild6.jpg" alt="Haarschnitt 6"> -->
+        <div class="gallery-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span data-de="Bild hier einfügen" data-en="Insert image here" data-ar="أدخل صورة هنا">Bild hier einfügen</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <!-- <img src="bild7.jpg" alt="Haarschnitt 7"> -->
+        <div class="gallery-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span data-de="Bild hier einfügen" data-en="Insert image here" data-ar="أدخل صورة هنا">Bild hier einfügen</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <!-- <img src="bild8.jpg" alt="Haarschnitt 8"> -->
+        <div class="gallery-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span data-de="Bild hier einfügen" data-en="Insert image here" data-ar="أدخل صورة هنا">Bild hier einfügen</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <!-- <img src="bild9.jpg" alt="Haarschnitt 9"> -->
+        <div class="gallery-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span data-de="Bild hier einfügen" data-en="Insert image here" data-ar="أدخل صورة هنا">Bild hier einfügen</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <!-- <img src="bild10.jpg" alt="Haarschnitt 10"> -->
+        <div class="gallery-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span data-de="Bild hier einfügen" data-en="Insert image here" data-ar="أدخل صورة هنا">Bild hier einfügen</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <!-- <img src="bild11.jpg" alt="Haarschnitt 11"> -->
+        <div class="gallery-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span data-de="Bild hier einfügen" data-en="Insert image here" data-ar="أدخل صورة هنا">Bild hier einfügen</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <!-- <img src="bild12.jpg" alt="Haarschnitt 12"> -->
+        <div class="gallery-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span data-de="Bild hier einfügen" data-en="Insert image here" data-ar="أدخل صورة هنا">Bild hier einfügen</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOURS -->
+  <section id="hours" class="fade-in">
+    <div class="hours-section" style="text-align: center;">
+      <div class="section-label" data-de="Wann wir da sind" data-en="When we're open" data-ar="متى نحن هنا">Wann wir da sind</div>
+      <h2 class="section-title" data-de="Öffnungszeiten" data-en="Opening Hours" data-ar="أوقات العمل">Öffnungszeiten</h2>
+      <div class="divider" style="margin: 0 auto 3rem;"></div>
+      <table class="hours-table">
+        <tr>
+          <td data-de="Montag" data-en="Monday" data-ar="الاثنين">Montag</td>
+          <td class="closed" data-de="Geschlossen" data-en="Closed" data-ar="مغلق">Geschlossen</td>
+        </tr>
+        <tr>
+          <td data-de="Dienstag" data-en="Tuesday" data-ar="الثلاثاء">Dienstag</td>
+          <td>09:00 – 19:00</td>
+        </tr>
+        <tr>
+          <td data-de="Mittwoch" data-en="Wednesday" data-ar="الأربعاء">Mittwoch</td>
+          <td>09:00 – 19:00</td>
+        </tr>
+        <tr>
+          <td data-de="Donnerstag" data-en="Thursday" data-ar="الخميس">Donnerstag</td>
+          <td>09:00 – 19:00</td>
+        </tr>
+        <tr>
+          <td data-de="Freitag" data-en="Friday" data-ar="الجمعة">Freitag</td>
+          <td>09:00 – 19:00</td>
+        </tr>
+        <tr>
+          <td data-de="Samstag" data-en="Saturday" data-ar="السبت">Samstag</td>
+          <td>09:00 – 17:00</td>
+        </tr>
+        <tr>
+          <td data-de="Sonntag" data-en="Sunday" data-ar="الأحد">Sonntag</td>
+          <td class="closed" data-de="Geschlossen" data-en="Closed" data-ar="مغلق">Geschlossen</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section id="reviews" class="reviews-section fade-in">
+    <div style="text-align: center; max-width: 1200px; margin: 0 auto;">
+      <div class="section-label" data-de="Das sagen unsere Kunden" data-en="What our clients say" data-ar="ماذا يقول عملاؤنا">Das sagen unsere Kunden</div>
+      <h2 class="section-title" data-de="Bewertungen" data-en="Reviews" data-ar="التقييمات">Bewertungen</h2>
+      <div class="divider" style="margin: 0 auto 3rem;"></div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+        <p class="review-text" data-de="&laquo;Bester Barbershop in Kaiserslautern! Die Jungs wissen genau was sie tun. Komme seit Jahren her und bin jedes Mal zufrieden. Top Beratung und super Atmosphäre.&raquo;" data-en="&laquo;Best barbershop in Kaiserslautern! The guys know exactly what they're doing. Been coming here for years and I'm satisfied every time. Great advice and amazing atmosphere.&raquo;" data-ar="&laquo;أفضل صالون حلاقة في كايزرسلاوترن! الشباب يعرفون بالضبط ما يفعلون. أزورهم منذ سنوات وأنا راضٍ في كل مرة. نصائح ممتازة وأجواء رائعة.&raquo;">&laquo;Bester Barbershop in Kaiserslautern! Die Jungs wissen genau was sie tun. Komme seit Jahren her und bin jedes Mal zufrieden. Top Beratung und super Atmosphäre.&raquo;</p>
+        <div class="review-author">Mehmet A.</div>
+        <div class="review-source">Google</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+        <p class="review-text" data-de="&laquo;Sehr freundliches Team, moderner Laden und das Ergebnis ist immer on point. Man fühlt sich sofort wohl. Klare Empfehlung!&raquo;" data-en="&laquo;Very friendly team, modern shop and the result is always on point. You feel comfortable right away. Highly recommended!&raquo;" data-ar="&laquo;فريق ودود جداً، محل عصري والنتيجة دائماً ممتازة. تشعر بالراحة فوراً. أنصح بشدة!&raquo;">&laquo;Sehr freundliches Team, moderner Laden und das Ergebnis ist immer on point. Man fühlt sich sofort wohl. Klare Empfehlung!&raquo;</p>
+        <div class="review-author">Kevin R.</div>
+        <div class="review-source">Google</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+        <p class="review-text" data-de="&laquo;I'm stationed nearby and this is by far the best barber I've found. They understood exactly what I wanted even with the language barrier. Awesome fade, great vibes!&raquo;" data-en="&laquo;I'm stationed nearby and this is by far the best barber I've found. They understood exactly what I wanted even with the language barrier. Awesome fade, great vibes!&raquo;" data-ar="&laquo;أنا متمركز بالقرب وهذا بلا شك أفضل حلاق وجدته. فهموا بالضبط ما أريد حتى مع حاجز اللغة. فيد رهيب وأجواء ممتازة!&raquo;">&laquo;I'm stationed nearby and this is by far the best barber I've found. They understood exactly what I wanted even with the language barrier. Awesome fade, great vibes!&raquo;</p>
+        <div class="review-author">James T.</div>
+        <div class="review-source">Google</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+        <p class="review-text" data-de="&laquo;Top Friseur, fairer Preis. Der Laden sieht richtig nice aus und die Jungs sind alle super drauf. Gehe nirgendwo anders mehr hin.&raquo;" data-en="&laquo;Top barber, fair price. The shop looks really nice and the guys are all super friendly. I don't go anywhere else anymore.&raquo;" data-ar="&laquo;حلاق ممتاز، سعر عادل. المحل شكله جميل والشباب كلهم رائعون. لا أذهب لأي مكان آخر.&raquo;">&laquo;Top Friseur, fairer Preis. Der Laden sieht richtig nice aus und die Jungs sind alle super drauf. Gehe nirgendwo anders mehr hin.&raquo;</p>
+        <div class="review-author">Nico S.</div>
+        <div class="review-source">Facebook</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+        <p class="review-text" data-de="&laquo;Mein Sohn und ich gehen immer zusammen hin. Super Schnitte für jedes Alter. Die Atmosphäre ist gemütlich und der Service erstklassig.&raquo;" data-en="&laquo;My son and I always go together. Great cuts for every age. The atmosphere is cozy and the service is first class.&raquo;" data-ar="&laquo;ابني وأنا نذهب دائماً معاً. قصات رائعة لكل الأعمار. الأجواء مريحة والخدمة من الدرجة الأولى.&raquo;">&laquo;Mein Sohn und ich gehen immer zusammen hin. Super Schnitte für jedes Alter. Die Atmosphäre ist gemütlich und der Service erstklassig.&raquo;</p>
+        <div class="review-author">Daniel M.</div>
+        <div class="review-source">Google</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+        <p class="review-text" data-de="&laquo;Endlich ein Barbershop der auch Bartpflege richtig kann. Perfekt getrimmt, sauber rasiert. Dazu noch coole Mucke im Laden. Was will man mehr?&raquo;" data-en="&laquo;Finally a barbershop that also does beard grooming right. Perfectly trimmed, cleanly shaved. Plus cool music in the shop. What more could you want?&raquo;" data-ar="&laquo;أخيراً صالون حلاقة يعرف كيف يعتني باللحية بشكل صحيح. تشذيب مثالي، حلاقة نظيفة. وكمان موسيقى حلوة بالمحل. شو بدك أكتر؟&raquo;">&laquo;Endlich ein Barbershop der auch Bartpflege richtig kann. Perfekt getrimmt, sauber rasiert. Dazu noch coole Mucke im Laden. Was will man mehr?&raquo;</p>
+        <div class="review-author">Ali K.</div>
+        <div class="review-source">Facebook</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="fade-in">
+    <div class="contact-section">
+      <div class="section-label" data-de="So erreichst du uns" data-en="Get in touch" data-ar="تواصل معنا">So erreichst du uns</div>
+      <h2 class="section-title" data-de="Kontakt" data-en="Contact" data-ar="اتصل بنا">Kontakt</h2>
+      <div class="divider" style="margin: 0 auto 3rem;"></div>
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="label" data-de="Adresse" data-en="Address" data-ar="العنوان">Adresse</div>
+          <div class="value"><a href="https://www.google.com/maps/dir/?api=1&destination=New+Look+Barbershop,Karl-Marx-Str.+8,67655+Kaiserslautern" target="_blank" rel="noopener">Karl-Marx-Str. 8, 67655 Kaiserslautern</a></div>
+        </div>
+        <div class="contact-item">
+          <div class="label" data-de="Telefon" data-en="Phone" data-ar="الهاتف">Telefon</div>
+          <div class="value"><a href="tel:+4963131169040">0631 31169040</a></div>
+        </div>
+        <div class="contact-item">
+          <div class="label">E-Mail</div>
+          <div class="value"><a href="mailto:newlook@gmx.de">newlook@gmx.de</a></div>
+        </div>
+      </div>
+      <div class="map-container">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2578.5!2d7.7697585!3d49.4433868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479612c705221bcb%3A0x5b45a9063c7c4d2!2sNew%20Look!5e0!3m2!1sde!2sde!4v1"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 New Look Barbershop &middot; Kaiserslautern</p>
+  </footer>
+
+  <script>
+    const langNames = { de: 'DE', en: 'EN', ar: 'عربي' };
+    let currentLang = 'de';
+
+    function toggleDropdown() {
+      document.getElementById('langWrapper').classList.toggle('open');
+    }
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.getElementById('langLabel').textContent = langNames[lang];
+      document.getElementById('langWrapper').classList.remove('open');
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+      document.querySelectorAll('.lang-option').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+
+      document.querySelectorAll('[data-de][data-en]').forEach(el => {
+        const val = el.getAttribute('data-' + lang);
+        if (val) el.innerHTML = val;
+      });
+    }
+
+    document.addEventListener('click', e => {
+      const wrapper = document.getElementById('langWrapper');
+      if (!wrapper.contains(e.target)) wrapper.classList.remove('open');
+    });
+
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks').classList.remove('open');
+      });
+    });
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
