@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8">
@@ -245,30 +245,6 @@
     }
     .cta-btn:hover { background: var(--gold); color: var(--black); box-shadow: 0 0 30px -6px rgba(200, 164, 90, 0.5); }
     .cta-btn:hover::before { transform: translateX(320%) skewX(-18deg); }
-
-    .scroll-hint {
-      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 0.7rem;
-      z-index: 2;
-      animation: heroIn 1s var(--ease-out) 1.6s both;
-    }
-    .scroll-hint span {
-      font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase;
-      color: var(--text-muted);
-    }
-    .scroll-hint .wheel {
-      width: 1px; height: 46px; background: rgba(200, 164, 90, 0.25);
-      position: relative; overflow: hidden;
-    }
-    .scroll-hint .wheel::after {
-      content: ''; position: absolute; top: 0; left: 0;
-      width: 1px; height: 14px; background: var(--gold);
-      animation: dropDot 2.2s cubic-bezier(.4, 0, .4, 1) infinite;
-    }
-    @keyframes dropDot {
-      0% { transform: translateY(-16px); }
-      70%, 100% { transform: translateY(48px); }
-    }
 
     /* ── MARQUEE ── */
     .marquee {
@@ -526,7 +502,6 @@
       .hero p { font-size: 0.95rem; }
       .hero-watermark { width: 75vw; }
       .cta-btn { padding: 0.85rem 2rem; font-size: 0.75rem; }
-      .scroll-hint { bottom: 1.2rem; }
 
       .marquee { padding: 0.8rem 0; }
       .marquee-group { gap: 1.6rem; padding-right: 1.6rem; }
@@ -573,7 +548,6 @@
     [dir="rtl"] .cta-btn { letter-spacing: 1px; }
     [dir="rtl"] .lang-toggle { letter-spacing: 0; }
     [dir="rtl"] .gallery-placeholder span { letter-spacing: 1px; }
-    [dir="rtl"] .scroll-hint span { letter-spacing: 1px; }
 
     /* ── SCROLL ANIMATIONS ── */
     .fade-in {
@@ -654,10 +628,6 @@
       <div class="hero-line"></div>
       <p data-de="Dein Style. Dein Statement. Seit Jahren stehen wir für erstklassige Haarschnitte und persönliche Beratung mitten in Kaiserslautern." data-en="Your style. Your statement. For years, we have stood for first-class haircuts and personal consultation in the heart of Kaiserslautern." data-ar="أسلوبك. بصمتك. منذ سنوات نقدم أفضل قصات الشعر والاستشارة الشخصية في قلب كايزرسلاوترن.">Dein Style. Dein Statement. Seit Jahren stehen wir für erstklassige Haarschnitte und persönliche Beratung mitten in Kaiserslautern.</p>
       <a href="#contact" class="cta-btn" data-de="Termin anfragen" data-en="Book now" data-ar="احجز موعد">Termin anfragen</a>
-    </div>
-    <div class="scroll-hint" aria-hidden="true">
-      <span data-de="Scrollen" data-en="Scroll" data-ar="مرر للأسفل">Scrollen</span>
-      <div class="wheel"></div>
     </div>
   </section>
 
